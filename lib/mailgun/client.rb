@@ -18,7 +18,9 @@ module Mailgun
       @http_client = RestClient::Resource.new(endpoint,
                                               user: 'api',
                                               password: api_key,
-                                              user_agent: "mailgun-sdk-ruby/#{Mailgun::VERSION}")
+                                              user_agent: "mailgun-sdk-ruby/#{Mailgun::VERSION}",
+                                              timeout: (ENV['MAILGUN_REST_CLIENT_TIMEOUT'] || 180).to_i, 
+                                              open_timeout: (ENV['MAILGUN_REST_CLIENT_TIMEOUT'] || 180).to_i)
     end
 
     # Simple Message Sending
